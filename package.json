@@ -1,0 +1,22 @@
+{
+  "name": "gamification-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HtunThiha/gamification-system.git"
+  },
+  "author": "Htun Thiha (Steve)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/HtunThiha/gamification-system/issues"
+  },
+  "homepage": "https://github.com/HtunThiha/gamification-system#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
