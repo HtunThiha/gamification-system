@@ -11,13 +11,17 @@ const createNewUser = (req: Request, res: Response, next: NextFunction) => {
     }
 
     const callback = (error, results) => {
-        if (error instanceof PrismaClientKnownRequestError) {
-            if (error.code == "P2002") {
-                res.status(409).json({message: "Username already exists."});
+        if (error) {
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code == "P2002") {
+                    res.status(409).json({message: "Username already exists."});
+                } else {
+                    res.status(400).json({message: "Unexpected request error occurred."});
+                }
+            } else {
+                console.error("Error creating user: \n", error);
+                res.status(500).send();    
             }
-        } else if (!(error instanceof PrismaClientKnownRequestError)) {
-            console.error("Error creating user: \n", error);
-            res.status(500).send();
         } else if (results) {
             res.locals.user_id = results.user_id;
             res.locals.response_status = 201;
@@ -39,13 +43,13 @@ const readUserIdAndHashByUsername = (req: Request, res: Response, next: NextFunc
     }
 
     const callback = (error, results) => {
-        if (!results) {
-            res.status(404).json({message: "Username not found."});
-        } else if (error) {
+        if (error) {
             console.error("Error reading user_id and hash by username: \n", error);
             res.status(500).send();
+        } else if (!results) {
+            res.status(404).json({message: "Username not found."});
         } else {
-            res.locals.user_id = results[0].user_id
+            res.locals.user_id = results[0].user_id;
         }
     }
 

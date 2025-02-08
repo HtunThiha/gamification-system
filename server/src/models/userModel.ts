@@ -1,6 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
-import { callbackify } from "util";
 
 const prisma = new PrismaClient();
 
